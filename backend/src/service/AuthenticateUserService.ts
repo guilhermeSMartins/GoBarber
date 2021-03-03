@@ -19,8 +19,8 @@ class AuthenticateUserService {
   public async execute({ email, password}:Request):Promise<Response> {
     const usersRepository = getRepository(User)
 
-    const user = await usersRepository.findOne({ 
-      where: { 
+    const user = await usersRepository.findOne({
+      where: {
         email
       }
     })
@@ -35,12 +35,12 @@ class AuthenticateUserService {
       throw new Error('Incorrect email or password')
     }
 
-    const token = sign({}, authConfig.jwt.secret, { 
+    const token = sign({}, authConfig.jwt.secret, {
       subject: user.id,
       expiresIn: authConfig.jwt.expiresIn
     })
 
-    return { 
+    return {
       user,
       token
     }

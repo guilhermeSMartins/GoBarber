@@ -8,13 +8,12 @@ import getValidationErrors from '../../utils/getValidationErrors';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import AuthContext from '../../context/AuthContext';
+//import { AuthContext } from '../../context/AuthContext';
 
 const SignUp: React.FC = () => {
-
     const formRef = useRef<FormHandles>(null);
 
-    const { name } = useContext(AuthContext);
+    //const { name } = useContext(AuthContext);
 
     const handleSubmit = useCallback(async (data: object): Promise<void> => {
         try {
@@ -33,7 +32,6 @@ const SignUp: React.FC = () => {
             const errors = getValidationErrors(err);
 
             formRef.current?.setErrors(errors);
-
         }
     }, [])
 
