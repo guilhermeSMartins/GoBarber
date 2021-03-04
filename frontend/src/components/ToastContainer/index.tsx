@@ -1,52 +1,37 @@
 import React from 'react';
-import { Container, Toast } from './styles';
-import { FiAlertCircle, FiXCircle } from 'react-icons/fi';
+import {useTransition} from 'react-spring';
 
+import {Container} from './styles';
+import {ToastMessage} from '../../hooks/toast';
+import Toast from './Toast';
 
-const ToastContainer: React.FC = () => {
-    return (
-        <Container>
-            <Toast type="error">
-                <FiAlertCircle size={20} />
-
-                <div>
-                    <strong>titulo toast</strong>
-                    <p>nao foi possivel logar</p>
-                </div>
-
-                <button type="button">
-                    <FiXCircle size={18} />
-                </button>
-            </Toast>
-
-            <Toast type="success">
-                <FiAlertCircle size={20} />
-
-                <div>
-                    <strong>titulo toast</strong>
-                    <p>nao foi possivel logar</p>
-                </div>
-
-                <button type="button">
-                    <FiXCircle size={18} />
-                </button>
-            </Toast>
-
-
-            <Toast type="info">
-                <FiAlertCircle size={20} />
-
-                <div>
-                    <strong>titulo toast</strong>
-                    <p>nao foi possivel logar</p>
-                </div>
-
-                <button type="button">
-                    <FiXCircle size={18} />
-                </button>
-            </Toast>
-        </Container>
-    );
+interface ToastContainerProps{
+  messages: ToastMessage[];
 }
 
-export default ToastContainer;
+const ToastContainer: React.FC<ToastContainerProps> = ({messages}) => {
+  const messagesWithTransition = useTransition(
+    messages,
+    message => message.id,
+    {
+      from: {right: '-120%', opacity:0},
+      enter: {right: '0%', opacity:1},
+      leave: {right: '-120%', opacity:0}
+    }
+  )
+
+  return(
+    <Container>
+      {messagesWithTransition.map(({item, key, props}) => (
+        <Toast 
+          key={key} 
+          style={props} 
+          message={item}
+        />
+      ))}
+      
+    </Container>
+  )
+}
+
+export default ToastContainer
