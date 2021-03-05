@@ -4,7 +4,7 @@ import { FiLogIn, FiMail, FiLock } from "react-icons/fi";
 import { object, string, ValidationError } from "yup";
 import { Form } from '@unform/web';
 
-import { Container, Content, Background } from "./styles";
+import { Container, Content, Background, AnimationContainer } from "./styles";
 
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
@@ -13,7 +13,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import getValidationErrors from "../../utils/getValidationErrors";
 import { FormHandles } from "@unform/core";
-import { useContext } from "react";
+import { Link } from "react-router-dom";
 
 interface SignInFormData {
   email: string;
@@ -53,6 +53,8 @@ const SignIn: React.FC = () => {
         const errors = getValidationErrors(err);
 
         formRef.current?.setErrors(errors);  
+
+        return;
       }
     }
 
@@ -66,6 +68,7 @@ const SignIn: React.FC = () => {
   return (
     <Container>
       <Content>
+        <AnimationContainer>
         <img src="" alt="logo" />
 
         <Form ref={formRef} onSubmit={handleSubmit}>
@@ -83,10 +86,11 @@ const SignIn: React.FC = () => {
           <a href="forgot">Esqueci minha senha</a>
         </Form>
 
-        <a href="login">
+        <Link to="/signup">
           <FiLogIn />
           Criar conta
-        </a>
+        </Link>
+        </AnimationContainer>
       </Content>
       <Background />
     </Container>
