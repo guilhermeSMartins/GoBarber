@@ -6,10 +6,10 @@
   "password": "docker",
   "database": "pqp",
   "entities": [
-    "./src/models/*.ts"
+    "./src/modules/**/infra/entities/*.ts"
   ],
   "migrations": [
-    "./src/database/migrations/*.ts"
+    "./src/shared/infra/typeorm/migrations/*.ts"
   ],
   "cli": {
     "migrationsDir": "./src/database/migrations"

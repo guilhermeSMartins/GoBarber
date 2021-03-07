@@ -13,7 +13,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import getValidationErrors from "../../utils/getValidationErrors";
 import { FormHandles } from "@unform/core";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 interface SignInFormData {
   email: string;
@@ -25,6 +25,7 @@ const SignIn: React.FC = () => {
 
   const { signIn } = useAuth();
   const { addToast } = useToast();
+  const history = useHistory();
 
   const handleSubmit = useCallback(async (data: SignInFormData): Promise<void> => {
 
@@ -47,7 +48,8 @@ const SignIn: React.FC = () => {
         email: data.email, 
         password: data.password
       });
-      
+
+      history.push('/dashboard');
     } catch (err) {
       if(err instanceof ValidationError) {
         const errors = getValidationErrors(err);
@@ -63,7 +65,7 @@ const SignIn: React.FC = () => {
       title: 'Erro na autenticação',
       description: 'Ocorreu um erro ao fazer login, cheque as credenciais'
     });
-  }, [signIn, addToast]);
+  }, [signIn, addToast, history]);
 
   return (
     <Container>
