@@ -10,7 +10,7 @@ interface IRequest {
 export default class ResetPasswordService {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUsersRepository,
+  private usersRepaository: IUsersRepository,
 
     @inject('UserTokenRepository')
     private userTokensRepository: IUserTokensRepository,
@@ -21,7 +21,7 @@ export default class ResetPasswordService {
 
     if(!userToken) throw new Error('User token does not exist');
 
-    const user = await this.usersRepository.findById(userToken.user_id);
+    const user = await this.usersRepository.findById(userToken.userId);
 
     if(!user) throw new Error('User does not exist');
 
